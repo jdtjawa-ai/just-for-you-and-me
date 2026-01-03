@@ -1,1 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>just.for.you.and.me</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: sans-serif;
+            transition: background-color 0.5s;
+            padding-top: 50px;
+        }
 
+        .blinking-text {
+            animation: blinker 1s linear infinite;
+            color: purple;
+            font-size: 2em;
+            font-weight: bold;
+        }
+
+        @keyframes blinker {
+            0% { opacity: 1.0; }
+            50% { opacity: 0.0; }
+            100% { opacity: 1.0; }
+        }
+
+        #messageArea {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+
+        /* This hides the community section by default */
+        #hiddenSection {
+            display: none;
+            margin-top: 50px;
+            padding: 20px;
+            border-top: 2px dashed darkmagenta; /* The "dashes" you mentioned */
+        }
+
+        textarea {
+            width: 80%;
+            height: 150px;
+            margin-top: 10px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <p id="prompt" class="blinking-text">Please Enter Password</p>
+
+    <input type="text" id="magicWordInput" onkeyup="checkWord()" autofocus>
+
+    <div id="messageArea">Waiting for password...</div>
+
+    <!-- This is the community section that reveals below -->
+    <div id="hiddenSection">
+        <h2>Community Log</h2>
+        <p>Tell me everything it writes down below:</p>
+        <textarea placeholder="Write here..."></textarea>
+        <br>
+        <button onclick="alert('Message saved locally (Simulation)')">Submit to Log</button>
+    </div>
+
+    <script>
+    function checkWord() {
+        const inputElement = document.getElementById('magicWordInput');
+        const messageElement = document.getElementById('messageArea');
+        const hiddenSection = document.getElementById('hiddenSection');
+        const promptText = document.getElementById('prompt');
+        const typedWord = inputElement.value;
+
+        if (typedWord === '#FFFF00') {
+            document.body.style.backgroundColor = "black";
+            promptText.style.display = "none"; // Hide the blinking prompt
+
+            messageElement.innerHTML = `
+                <h1>Access Granted</h1>
+                <p>Jawa has no idea. If you are reading this, you are smart enough to help.
+                Tell me everything it writes down below.
+                You can tell from the dashes. <br>— From Nova</p>
+            `;
+            messageElement.style.color = "white";
+
+            // REVEAL the hidden community section
+            hiddenSection.style.display = "block";
+        } else {
+            // Reset everything if password is removed
+            document.body.style.backgroundColor = "white";
+            promptText.style.display = "block";
+            messageElement.innerHTML = "Waiting for password...";
+            messageElement.style.color = "white";
+            hiddenSection.style.display = "none";
+        }
+    }
+    </script>
+</body>
+</html>
